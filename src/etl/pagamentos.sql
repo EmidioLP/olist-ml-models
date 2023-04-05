@@ -14,6 +14,7 @@ WITH tb_join AS (
     AND dtPedido >= julianday('2018-01-01', '-6 months')
     AND t3.idVendedor IS NOT NULL
     AND t2.descTipoPagamento IS NOT NULL
+    AND t1.idPedido IS NOT NULL
 ),
 
 tb_group AS (
