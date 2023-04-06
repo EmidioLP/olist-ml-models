@@ -69,5 +69,30 @@ tb_summary AS(
     FROM tb_group
 
     GROUP BY idVendedor
+),
+
+tb_cartao AS(
+
+  SELECT idVendedor,
+        AVG(nrParcelas) AS avgQtdeParcelas,
+        MAX(nrParcelas) AS maxQtdeParcelas,
+        MIN(nrParcelas) AS minQtdeParcelas
+
+  FROM tb_join
+
+  WHERE descTipoPagamento = 'credit_card'
+
+  GROUP BY idVendedor
 )
 
+SELECT 
+       '2018-01-01' AS dtReference,
+       t1.*,
+       t2.avgQtdeParcelas,
+       t2.maxQtdeParcelas,
+       t2.minQtdeParcelas
+
+FROM tb_summary as t1
+
+LEFT JOIN tb_cartao as t2
+ON t1.idVendedor = t2.idVendedor
